@@ -4,6 +4,7 @@
 #include "playlist.h"
 
 typedef struct pessoa Pessoa;
+typedef struct tcelula tCelula;
 
 typedef struct tipolista TipoLista;
 
@@ -11,7 +12,11 @@ Pessoa* InicializaPessoa(char* nome);
 
 TipoLista* InicializaListaDePessoas();
 
+void inicializaListaAmigos(TipoLista *lista);
+
 void InserePessoa (Pessoa* aluno, TipoLista* lista);
+
+tCelula* retornaCelula(TipoLista* lista,char *nome);
 
 void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado);
 

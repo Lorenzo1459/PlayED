@@ -1,4 +1,4 @@
 Joao;Maria;Pedro;Alice
 Joao;Maria
-Joao;Pedro	
+Joao;Pedro
 Pedro;Alice

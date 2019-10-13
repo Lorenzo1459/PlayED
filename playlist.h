@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct playlists Playlists;
 typedef struct playlist Playlist;
+typedef struct tcelulam TcelulaM;
 
 typedef struct musica Musica;
 

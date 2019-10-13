@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include"pessoa.h" 
 
 struct musica{
   char* nome;
@@ -10,17 +11,35 @@ struct musica{
   outras informaçoes de musica
   */
 };
+struct tcelulam{
+  Musica *musica;
+  TcelulaM *prox;
+};
 
 struct playlist{
   char* nome_playlist;
-  Playlist* prox; // Apontador p/ prox (lista sem sentinela)
-  Musica* musicas; // Lista de musicas
+  TcelulaM *prim,*ult;
 };
 
-Playlist* InicializaPlaylist(){
+struct playlists{
+  Playlist *prim,*ult;
+};
+Playlists* InicializaPlaylists(){
+  Playlists *playlists = malloc(sizeof(Playlists));
+  playlists -> prim= playlists -> ult= NULL;
+}
+
+
+Playlist* InicializaPlaylist(char *nome){
   Playlist* playlist = (Playlist*)malloc(sizeof(Playlist));
-  // playlist->musicas = ?;
-  playlist->prox = NULL;
+  playlist -> nome_playlist = strdup(nome);
+  playlist -> prim = playlist -> ult = NULL;
+}
+void CriaPlaylist(TipoLista *lista,char *nome,char *nomePlaylist){
+  tCelula *nova;
+  nova = retornaCelula(lista,nome);
+  /////parei aquiiiiiii
+
 }
 
 void InsereMusica (Musica* mus, Playlist* lista){
