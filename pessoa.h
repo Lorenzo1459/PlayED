@@ -13,7 +13,7 @@ TipoLista* InicializaListaDePessoas();
 
 void InserePessoa (Pessoa* aluno, TipoLista* lista);
 
-void AdicionaAmigo(TipoLista* lista, Pessoa* adicionador, char* adicionado);
+void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado);
 
 // Pessoa* Retira (TipoLista* lista, ""fator de busca p/ retirar""); // Se for preciso retirar
 
@@ -22,5 +22,7 @@ void ImprimePessoa (Pessoa* p);
 void ImprimeLista (TipoLista* lista);
 
 TipoLista* Libera (TipoLista* lista);
+
+void inicializaListaAmigos(TipoLista *lista);
 
 #endif //PESSOA_H

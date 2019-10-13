@@ -7,9 +7,9 @@ int main(int argc, char const *argv[]) {
 
   TipoLista* pessoas = InicializaListaDePessoas();
 
-  FILE *fp = fopen(argv[1],"r");
+  FILE *fp = fopen("amizade.txt","r");
   char c;
-  char buffer[20];
+  char buffer[20],buffer2[2][20];
   int n = 0;
 
   if (fp != NULL){
@@ -26,13 +26,29 @@ int main(int argc, char const *argv[]) {
       }
       InserePessoa(InicializaPessoa(buffer),pessoas);
   }
-  while (c != '\n') {
-    
+  
+  inicializaListaAmigos(pessoas);
+  
+  while((c=fgetc(fp))!= EOF ){
+    n=0;
+    while((c = fgetc(fp)) != ';'){
+      buffer2[1][n] = c;
+      n++;  
+    }
+    while ((c = fgetc(fp)) != '\n') {
+      buffer2[2][n] = c;
+      n++; 
+    }
+    AdicionaAmigo(pessoas,buffer2[1],buffer2[2]);
+
   }
+  ImprimeLista(pessoas);
+
+  
   fclose(fp);
 
 
-  // printf("Existem %d caracteres no arquivo.\n", n);
+   printf("Existem %d caracteres no arquivo.\n", n);
 
   return 0;
 }
