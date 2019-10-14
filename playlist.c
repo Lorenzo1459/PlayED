@@ -19,6 +19,7 @@ struct tcelulam{
 struct playlist{
   char* nome_playlist;
   TcelulaM *prim,*ult;
+  Playlist *prox;
 };
 
 struct playlists{
@@ -35,9 +36,16 @@ Playlist* InicializaPlaylist(char *nome){
   playlist -> nome_playlist = strdup(nome);
   playlist -> prim = playlist -> ult = NULL;
 }
-void CriaPlaylist(TipoLista *lista,char *nome,char *nomePlaylist){
-  tCelula *nova;
-  nova = retornaCelula(lista,nome);
+void CriaPlaylist(Playlists *playlists,char *nomePlaylist){
+  Playlist *nova=InicializaPlaylist(nomePlaylist);
+  if(playlists->prim==NULL){
+    playlists->prim=playlists->ult=nova;
+  }
+  else{
+    playlists->ult->
+  }
+
+  
   /////parei aquiiiiiii
 
 }

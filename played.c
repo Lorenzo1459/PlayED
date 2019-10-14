@@ -94,7 +94,7 @@ int main(/*int argc, char const *argv[]*/) {
           
         }
         buffer[n]='\0';
-        CriaPlaylist(pessoas,buffer[1],buffer);
+        CriaPlaylist(retornaPlaylists(pessoas,buffer2[1]),buffer);
       }
     }
   }

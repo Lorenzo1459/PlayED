@@ -125,7 +125,11 @@ void ImprimeLista (TipoLista* lista){
     //falta a parte de imprimir a playlist pq ainda n foi implementada
   }
 }
+Playlists* retornaPlaylists(TipoLista *lista,char *nome){
+  tCelula *aux=retornaCelula(lista,nome);
+  return aux->pessoa->playlists;
+}
 
-TipoLista* Libera (TipoLista* lista){
+TipoLista* Libera(TipoLista* lista){
   // Libera Lista de Pessoas
 }
