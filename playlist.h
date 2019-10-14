@@ -19,6 +19,12 @@ void ImprimePlaylist (Playlist* p);
 
 Musica* InicializaMusica(char* nome);
 
+Playlist* InicializaPlaylist(char *nome);
+
+Playlists* InicializaPlaylists();
+
+void CriaPlaylist(Playlists *playlists,char *nomePlaylist);
+
 // Musica* retornaMusica(Playlist* p); //Pensar em funçoes de retorno necessarias para fora do encapsulamento
 
 #endif //PLAYLIST_H_

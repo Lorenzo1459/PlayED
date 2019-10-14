@@ -30,4 +30,6 @@ TipoLista* Libera (TipoLista* lista);
 
 void inicializaListaAmigos(TipoLista *lista);
 
+Playlists* retornaPlaylists(TipoLista *lista,char *nome);
+
 #endif //PESSOA_H

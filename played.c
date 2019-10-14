@@ -1,4 +1,5 @@
 #include "pessoa.h"
+#include "playlist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,6 +15,11 @@ int main(/*int argc, char const *argv[]*/) {
 
   if (fp != NULL){
     while ((c = fgetc(fp)) != '\n') {
+      if (c == ' ')
+      {
+        continue;
+      }
+      
       if (c != ';') {
         buffer[n] = c;
         n++;

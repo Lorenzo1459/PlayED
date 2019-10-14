@@ -37,12 +37,14 @@ Playlist* InicializaPlaylist(char *nome){
   playlist -> prim = playlist -> ult = NULL;
 }
 void CriaPlaylist(Playlists *playlists,char *nomePlaylist){
+  //insere uma playlist vazia a lista
   Playlist *nova=InicializaPlaylist(nomePlaylist);
   if(playlists->prim==NULL){
     playlists->prim=playlists->ult=nova;
   }
   else{
-    playlists->ult->
+    playlists->ult->prox=nova;
+    playlists->ult=nova;
   }
 
   
