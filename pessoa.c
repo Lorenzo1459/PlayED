@@ -86,16 +86,16 @@ void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado){
   tCelula* aux2;
   
   
-  if (aux != NULL) {
+  if (lista != NULL) {
     
     //percorre a lista e acha a 1 pessoa
     aux = retornaCelula(lista,adicionador);
-    puts(aux->pessoa->nome); 
+    
     
     //percorre a lista e acha a 2 pessoa
     
     aux2 =retornaCelula(lista,adicionado);
-    puts(aux2->pessoa->nome);
+    
     //insere a pessoa 2 na lista de amigos da pessoa 1 e vice-versa
     InserePessoa(aux2->pessoa,aux->pessoa->amigos);
     InserePessoa(aux->pessoa,aux2->pessoa->amigos); 
@@ -111,6 +111,7 @@ void ImprimePessoa (Pessoa* p){
 void ImprimeLista (TipoLista* lista){
   // Imprime Lista de Pessoas
   tCelula* aux = lista->prim;
+  puts("aaaa");
   while (aux != NULL) {
     puts("\n");
     ImprimePessoa(aux->pessoa);

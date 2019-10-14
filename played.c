@@ -9,8 +9,9 @@ int main(/*int argc, char const *argv[]*/) {
   TipoLista* pessoas = InicializaListaDePessoas();
 
   FILE *fp = fopen("amizade.txt","r");
+  FILE *fp2 = fopen("playlists.txt","r");
   char c;
-  char buffer[20], buffer2[2][20];;
+  char buffer[32], buffer2[2][32];;
   int n = 0;
 
   if (fp != NULL){
@@ -48,6 +49,7 @@ int main(/*int argc, char const *argv[]*/) {
         
       }while((c = fgetc(fp)) != ';');
       buffer2[0][n]='\0';
+      
 
       //fgetc pra pular o ponto e virgula
       c=fgetc(fp);
@@ -57,10 +59,8 @@ int main(/*int argc, char const *argv[]*/) {
         buffer2[1][n] = c;
         
         n++;  
-      }
-      while ((c = fgetc(fp)) != '\n');
+      }while ((c = fgetc(fp)) != '\n');
       buffer2[1][n]='\0';
-
       AdicionaAmigo(pessoas,buffer2[0],buffer2[1]);
       memset(buffer2[0],0,strlen(buffer2[0]));
       memset(buffer2[1],0,strlen(buffer2[1]));
@@ -75,34 +75,84 @@ int main(/*int argc, char const *argv[]*/) {
   fclose(fp);
 
   //ler o playlists.txt
-  fp=fopen("playlists.txt","r");
-  if (fp != NULL){
-    int quantPlaylists=0;
-    char *aux[20];
-    
-    n=0;
-    while(c=fgetc(fp)!= EOF){
-      //le o nome da pessoa
-      do{
+  
+  if (fp2 != NULL){
+    int quantPlaylists=0;        
+    //trocar i por quant de pessoas
+    for (int i = 0; i < 4; i++)
+    {
+     n=0;
+    while((c=fgetc(fp2))!= ';'){
+  
+      if (c == ' ')
+      {
+        continue;
+      }
+
+      
+      buffer2[0][n] = c;
+      n++;                    
+    }
+    buffer2[0][n]='\0';
+    fgetc(fp2);                  
+    fscanf(fp2,"%i",&quantPlaylists);
+    fgetc(fp2);              
+    n = 0;
+    while ((c = fgetc(fp2)) != '\n')
+    {                  
+      //printf("aaaaaaaaaaaaaaaaaaaaaa %c",c);
+      if (c != ';')
+      {
         buffer2[1][n] = c;
         n++;
-      }while((c = fgetc(fp)) != ';');
-      buffer2[1][n]='\0';
-
-      //le o numero de playlists;
-      c=fgetc(fp);
-      quantPlaylists=(int)(c=fgetc(fp));
-      c=fgetc(fp);
-      for(int i=0;i<quantPlaylists;i++){
-        while(c=fgetc(fp)!=';'){
-          buffer[n] = c;
-          n++;
-          
-        }
-        buffer[n]='\0';
-        CriaPlaylist(retornaPlaylists(pessoas,buffer2[1]),buffer);
+      }
+      else if (c == ';' || c == '\n'){        
+        
+        buffer2[1][n]='\0';
+        // puts(buffer2[1]);        
+        CriaPlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);        
+        memset(buffer2[1],0,strlen(buffer2[1]));
+        n=0;
       }
     }
+    CriaPlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
+    memset(buffer2[1],0,strlen(buffer2[1]));
+    memset(buffer2[0],0,strlen(buffer2[0]));
+    printf("%c",c);
+    }
+    
+    
+    // puts(buffer);
+      
+
+      //le o nome da pessoa    
+      // printf("A %c", c);
+      // do{
+      //   printf("B %c", c);
+      //   buffer2[1][n] = c;
+      //   n++;
+
+      // }while(c  != ';');
+      // printf("C %c", c);
+      // buffer2[1][n]='\0';      
+      // //le o numero de playlists;
+      // c=fgetc(fp2);
+      // fscanf(fp2,"%i",&quantPlaylists);
+      // c=fgetc(fp2);
+      // for(int i=0;i<quantPlaylists;i++){
+      //   while(c=fgetc(fp2)!=';'){
+      //     buffer[n] = c;
+      //     n++;
+          
+      //   }
+      //   buffer[n]='\0'; 
+
+
+        
+               
+        //puts(buffer);
+        //CriaPlaylist(retornaPlaylists(pessoas,buffer2[1]),buffer);
+      // }    
   }
 
 

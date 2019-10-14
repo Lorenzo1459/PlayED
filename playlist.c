@@ -25,28 +25,33 @@ struct playlist{
 struct playlists{
   Playlist *prim,*ult;
 };
+
+
 Playlists* InicializaPlaylists(){
   Playlists *playlists = malloc(sizeof(Playlists));
   playlists -> prim= playlists -> ult= NULL;
 }
 
 
-Playlist* InicializaPlaylist(char *nome){
+Playlist* InicializaPlaylist(char *nome){  
   Playlist* playlist = (Playlist*)malloc(sizeof(Playlist));
   playlist -> nome_playlist = strdup(nome);
-  playlist -> prim = playlist -> ult = NULL;
+  playlist -> prox = NULL;
+  playlist -> prim = playlist -> ult = NULL;  
+  return playlist;
 }
 void CriaPlaylist(Playlists *playlists,char *nomePlaylist){
   //insere uma playlist vazia a lista
-  Playlist *nova=InicializaPlaylist(nomePlaylist);
+ 
+  Playlist *nova=InicializaPlaylist(nomePlaylist);  
   if(playlists->prim==NULL){
-    playlists->prim=playlists->ult=nova;
+    playlists->prim=playlists->ult=nova;    
   }
-  else{
+  else{    
     playlists->ult->prox=nova;
     playlists->ult=nova;
   }
-
+  printf("%s\n",nova->nome_playlist);
   
   /////parei aquiiiiiii
 
