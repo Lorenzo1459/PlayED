@@ -5,18 +5,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct playlists Playlists;
 typedef struct playlist Playlist;
+typedef struct tcelulam TcelulaM;
 
 typedef struct musica Musica;
 
-Playlist* InicializaPlaylist();
+Playlists* InicializaPlaylists();
+Playlist* InicializaPlaylist(char *nome);
+Musica* InicializaMusica(char* artista, char* nome);
 
 void InsereMusica (Musica* mus, Playlist* lista);
 
 void ImprimePlaylist (Playlist* p);
+void ImprimePlaylists (Playlists* p);
 
-Musica* InicializaMusica(char* nome);
+void CriaPlaylist(Playlists *playlists,char *nomePlaylist);
 
-// Musica* retornaMusica(Playlist* p); //Pensar em funçoes de retorno necessarias para fora do encapsulamento
+
+
+//funcoes de retorno p/ escopo caso necessarias
+// Playlist* retornaPrimeiro(Playlists* p);
+// Playlist* retornaProximo(Playlist* p);
 
 #endif //PLAYLIST_H_

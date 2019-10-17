@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct tcelula tCelula;
+
 
 struct tcelula{
   Pessoa* pessoa; // Item
@@ -19,14 +19,14 @@ struct tipolista{
 struct pessoa{
   char* nome; // Nome da pessoa
   TipoLista* amigos; // Lista de amigos
-  Playlist* playlists; // Lista de playlists
+  Playlists* playlists; // Lista de playlists
 };
 
 Pessoa* InicializaPessoa(char* nome){
   Pessoa* p = (Pessoa*)malloc(sizeof(Pessoa));
   p->nome = strdup(nome);
   p->amigos = InicializaListaDePessoas();
-  p->playlists = NULL;
+  p->playlists = InicializaPlaylists();
   return p;
 }
 
@@ -36,9 +36,18 @@ TipoLista* InicializaListaDePessoas(){
   return lst;
 }
 
-void InserePessoa (Pessoa* aluno, TipoLista* lista){
+void inicializaListaAmigos(TipoLista *lista){
+  tCelula *aux=lista->prim;
+  while(aux != NULL){
+    InicializaListaDePessoas(aux->pessoa->amigos);
+    aux=aux->prox;
+  }
+}
+
+void InserePessoa (Pessoa* amigo, TipoLista* lista){
   tCelula* nova = (tCelula*)malloc(sizeof(tCelula));
-  nova->pessoa = aluno;
+  nova->pessoa = amigo;
+  nova->prox=NULL;
   if (lista->prim == NULL) {
     lista->prim = nova;
     lista->ult = nova;
@@ -49,25 +58,61 @@ void InserePessoa (Pessoa* aluno, TipoLista* lista){
   }
 }
 
-void AdicionaAmigo(TipoLista* lista, Pessoa* adicionador, char* adicionado){
+tCelula* retornaCelula(TipoLista* lista,char *nome){
   tCelula* aux = lista->prim;
-  while (aux != NULL) {
-    if (strcmp(adicionado,lista->pessoa->nome) == 0) {
-       // InserePessoa(aux,adicionador->amigos);
-       
-    }
+  while (strcmp(nome,aux->pessoa->nome) != 0){
     aux = aux->prox;
+  }
+  return aux;
+}
+
+void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado){
+  tCelula* aux;
+  tCelula* aux2;
+  if (lista != NULL) {
+    aux = retornaCelula(lista,adicionador); //percorre a lista e acha a 1 pessoa
+    aux2 =retornaCelula(lista,adicionado); //percorre a lista e acha a 2 pessoa
+    InserePessoa(aux2->pessoa,aux->pessoa->amigos); //insere a pessoa 2 na lista de amigos da pessoa 1 e vice-versa
+    InserePessoa(aux->pessoa,aux2->pessoa->amigos);
   }
 }
 
 void ImprimePessoa (Pessoa* p){
-  // Imprime pessoa P
+  puts(p->nome);
+  //falta playlist
+  printf("--Playlists--\n");
+  ImprimePlaylists(p->playlists);
 }
 
 void ImprimeLista (TipoLista* lista){
   // Imprime Lista de Pessoas
+  tCelula* aux = lista->prim;
+  while (aux != NULL) {
+    puts("\n");
+    ImprimePessoa(aux->pessoa);
+    puts("--Amigos--"); // Abaixo - Logica para impressao de amigos
+    tCelula* aux2 = aux->pessoa->amigos->prim;
+    while(aux2 != NULL){
+      printf("%s\n", aux2->pessoa->nome);
+      aux2 = aux2->prox;
+    }
+    aux=aux->prox;
+  }
 }
 
-TipoLista* Libera (TipoLista* lista){
+
+//Funcoes de retorno p/ escopo
+Playlists* retornaPlaylists(TipoLista *lista,char *nome){
+  tCelula *aux=retornaCelula(lista,nome);
+  return aux->pessoa->playlists;
+}
+
+
+//  Funcoes libera
+TipoLista* LiberaListaPessoas(TipoLista* lista){
   // Libera Lista de Pessoas
+}
+//
+TipoLista* LiberaPessoa(Pessoa* p){
+
 }
