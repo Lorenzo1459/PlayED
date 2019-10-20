@@ -44,9 +44,9 @@ void inicializaListaAmigos(TipoLista *lista){
   }
 }
 
-void InserePessoa (Pessoa* amigo, TipoLista* lista){
+void InserePessoa (Pessoa* pessoa, TipoLista* lista){
   tCelula* nova = (tCelula*)malloc(sizeof(tCelula));
-  nova->pessoa = amigo;
+  nova->pessoa = pessoa;
   nova->prox=NULL;
   if (lista->prim == NULL) {
     lista->prim = nova;
@@ -57,6 +57,20 @@ void InserePessoa (Pessoa* amigo, TipoLista* lista){
     lista->ult = nova;
   }
 }
+// void InsereAmigo (Pessoa* amigo, TipoLista* lista){
+//   //mesma função da insere pessoa porem o ponteiro n precisa ser alocado pois apontara pra pessoa q ja existe na lista
+//   tCelula* nova;
+//   nova->pessoa=amigo;
+//   if (lista->prim == NULL) {
+//     lista->prim = nova;
+//     lista->ult = nova;
+//   }
+//   else{
+//     lista->ult->prox = nova;
+//     lista->ult = nova;
+//   }
+  
+// }
 
 tCelula* retornaCelula(TipoLista* lista,char *nome){
   tCelula* aux = lista->prim;
@@ -101,10 +115,30 @@ void ImprimeLista (TipoLista* lista){
 }
 
 
+
 //Funcoes de retorno p/ escopo
 Playlists* retornaPlaylists(TipoLista *lista,char *nome){
   tCelula *aux=retornaCelula(lista,nome);
   return aux->pessoa->playlists;
+}
+
+void adicionaMusicas(TipoLista *lista){
+  tCelula *aux;
+  aux=lista->prim;
+  while(aux != NULL){
+    leInfoPlaylists(aux->pessoa->playlists);
+    aux=aux->prox;
+  }
+}
+void refatoraPlaylists(TipoLista *lista){
+  
+  tCelula *aux;
+  aux=lista->prim;
+  //teoricamente percorre as playlists de todas pessoas
+  while(aux != NULL){
+    RefatoraDeVerdade(aux->pessoa->playlists);
+    aux=aux->prox;
+  }  
 }
 
 

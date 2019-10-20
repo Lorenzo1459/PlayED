@@ -84,13 +84,126 @@ void ImprimePlaylists (Playlists* p){
   // Imprime a lista de playlists
   Playlist* aux = p->prim;
   while (aux != NULL) {
-    printf("%s\n", aux->nome_playlist);
+    puts("\n\n\n");
+    printf("Playlist ::: %s\n", aux->nome_playlist);
     ImprimePlaylist(aux);
     aux = aux->prox;
   }
 }
+void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
+  FILE *arq=fopen(nomePlaylist,"r");
+  puts(nomePlaylist);
+  char c,nomeMusica[200],nomeArtista[40];
+  int n=0;
+  if(arq != NULL)
+  {
+    
+    while(c != EOF){;
+      c=fgetc(arq);
+      //printf("%c",c);
+      while(c != '-'){
+        nomeArtista[n]=c;
+         n++;
+         c=fgetc(arq);
+        }
+       nomeArtista[n]='\0';
+      puts(nomeArtista);
+      n=0;
+      if(c== '-'){
+         c=fgetc(arq);
+      }
+       while(c  != '\n'&& c !=EOF){
+         nomeMusica[n]=c;
+        n++;
+        c=fgetc(arq);
+
+      }
+        if(c!=EOF){
+        nomeMusica[n]='\0';
+        puts(nomeMusica);
+        InsereMusica(InicializaMusica(nomeArtista,nomeMusica),playlist);
+        memset(nomeMusica,0,strlen(nomeMusica));
+        memset(nomeArtista,0,strlen(nomeArtista));
+        n=0;
+        }
+      
+      
+
+    }
+      nomeMusica[n]='\0';
+      puts(nomeMusica);
+      InsereMusica(InicializaMusica(nomeArtista,nomeMusica),playlist);
+      memset(nomeMusica,0,strlen(nomeMusica));
+      memset(nomeArtista,0,strlen(nomeArtista));
+      c='c';//reseta o c pra n guardar o  EOF
+      n=0;
+  }
+  else{puts("não abriu");
+  }
+fclose(arq);
+}
+void leInfoPlaylists(Playlists *playlists){
+  Playlist *aux=playlists->prim;
+  while(aux != NULL){
+    LeArqMusicas(aux->nome_playlist,aux);
+    aux=aux->prox;
+  }
+}
+
+void RefatoraDeVerdade(Playlists *playlists){
+  puts("entrei arrom");
+  //teoricamente percorre as playlists
+  Playlist *aux=playlists->prim;
+  while(aux != NULL){
+  TcelulaM *auxMusica=aux->prim;
+    while(auxMusica != NULL){
+      //pércorre todas as celulas de musica e chama a função refatora
+      RefatoraPorNome(auxMusica->musica,playlists,aux);
+      auxMusica=auxMusica->prox;
+    }
+  aux=aux->prox;
+  }
+}
+
+void RefatoraPorNome(Musica *musica,Playlists *playlists,Playlist *playAtual){
+  TcelulaM *auxPercorre=playAtual->prim;
+  Musica *aux;
+  Playlist *aux2=playAtual;
+//substituir esse if por uma função q retorna se ja tem alguma playlist com o nome do artista
+if(strcmp(musica->artista,playlists->ult->nome_playlist)!=0){
+  CriaPlaylist(playlists,musica->artista);
+
+  while(auxPercorre !=NULL){
+    aux=auxPercorre->musica;
+    if(strcmp(aux->artista,musica->artista)==0){
+      InsereMusica(retiraMusica(aux,aux2),playlists->ult);
+      }
+  auxPercorre=auxPercorre->prox;
+  }
+}
+}
 
 
+
+Musica* retiraMusica(Musica *musica,Playlist* playlist){
+  TcelulaM *aux=playlist->prim,*aux2=playlist->prim;
+  Musica *auxresultado;
+  while(aux != NULL){
+    if(strcmp(aux->musica->artista,musica->artista)==0 && strcmp(aux->musica->artista,playlist->prim->musica->artista)==0){
+      auxresultado=aux->musica;     
+      playlist->prim=aux->prox;
+      return auxresultado;
+    }
+    if(strcmp(aux->musica->artista,musica->artista)==0){
+      auxresultado=aux->musica;
+      aux2=aux->prox;
+      return auxresultado;
+    }
+    aux2=aux;
+    aux=aux->prox;
+
+  }
+}
 
 
 

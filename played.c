@@ -100,6 +100,9 @@ int main(/*int argc, char const *argv[]*/) {
     }
   }
   ImprimeLista(pessoas);
+  adicionaMusicas(pessoas);
+  refatoraPlaylists(pessoas);
+  ImprimeLista(pessoas);
 
   return 0;
 }
