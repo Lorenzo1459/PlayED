@@ -17,7 +17,7 @@ Musica* InicializaMusica(char* artista, char* nome);
 void LeArqMusicas(char *nomePlaylist,Playlist *playlist);
 void leInfoPlaylists(Playlists *playlists);
 void RefatoraDeVerdade(Playlists *playlists);
-void RefatoraPorNome(Musica *musica,Playlists *playlists,Playlist *playAtual);
+void RefatoraPorNome(Musica *musica,Playlists *playlists);
 Musica* retiraMusica(Musica *musica,Playlist* playlist);
 
 void InsereMusica (Musica* mus, Playlist* lista);

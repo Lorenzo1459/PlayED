@@ -158,17 +158,17 @@ void RefatoraDeVerdade(Playlists *playlists){
   TcelulaM *auxMusica=aux->prim;
     while(auxMusica != NULL){
       //pércorre todas as celulas de musica e chama a função refatora
-      RefatoraPorNome(auxMusica->musica,playlists,aux);
+      RefatoraPorNome(auxMusica->musica,playlists);
       auxMusica=auxMusica->prox;
     }
   aux=aux->prox;
   }
 }
 
-void RefatoraPorNome(Musica *musica,Playlists *playlists,Playlist *playAtual){
-  TcelulaM *auxPercorre=playAtual->prim;
+void RefatoraPorNome(Musica *musica,Playlists *playlists){
+  TcelulaM *auxPercorre=playlists->prim->prim;
   Musica *aux;
-  Playlist *aux2=playAtual;
+  Playlist *aux2=playlists->prim;
 //substituir esse if por uma função q retorna se ja tem alguma playlist com o nome do artista
 if(strcmp(musica->artista,playlists->ult->nome_playlist)!=0){
   CriaPlaylist(playlists,musica->artista);
