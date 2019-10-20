@@ -14,10 +14,11 @@ typedef struct musica Musica;
 Playlists* InicializaPlaylists();
 Playlist* InicializaPlaylist(char *nome);
 Musica* InicializaMusica(char* artista, char* nome);
+
 void LeArqMusicas(char *nomePlaylist,Playlist *playlist);
 void leInfoPlaylists(Playlists *playlists);
-void RefatoraDeVerdade(Playlists *playlists);
-void RefatoraPorNome(Musica *musica,Playlists *playlists);
+Playlists* RefatoraPlaylistsDePessoa(Playlists *playlists);
+Playlists* RefatoraUmaPlaylist(Playlist* p);
 Musica* retiraMusica(Musica *musica,Playlist* playlist);
 
 void InsereMusica (Musica* mus, Playlist* lista);
@@ -25,10 +26,11 @@ void InsereMusica (Musica* mus, Playlist* lista);
 void ImprimePlaylist (Playlist* p);
 void ImprimePlaylists (Playlists* p);
 
-void CriaPlaylist(Playlists *playlists,char *nomePlaylist);
+void InserePlaylist(Playlists *playlists,char *nomePlaylist); //insere pelo nome (inicializando)
+void InserePlaylist2(Playlists *playlists,Playlist* p); // insere dada playlist em uma lista de playlists
 
-
-
+static int PlaylistJaExistente(char* nome, Playlists* p);
+void LocalizaPlaylistEInsere(char* nome, Playlists* p);
 //funcoes de retorno p/ escopo caso necessarias
 // Playlist* retornaPrimeiro(Playlists* p);
 // Playlist* retornaProximo(Playlist* p);

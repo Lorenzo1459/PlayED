@@ -69,7 +69,7 @@ void InserePessoa (Pessoa* pessoa, TipoLista* lista){
 //     lista->ult->prox = nova;
 //     lista->ult = nova;
 //   }
-  
+
 // }
 
 tCelula* retornaCelula(TipoLista* lista,char *nome){
@@ -130,15 +130,15 @@ void adicionaMusicas(TipoLista *lista){
     aux=aux->prox;
   }
 }
+
 void refatoraPlaylists(TipoLista *lista){
-  
   tCelula *aux;
   aux=lista->prim;
   //teoricamente percorre as playlists de todas pessoas
   while(aux != NULL){
-    RefatoraDeVerdade(aux->pessoa->playlists);
+    RefatoraPlaylistsDePessoa(aux->pessoa->playlists);
     aux=aux->prox;
-  }  
+  }
 }
 
 

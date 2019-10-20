@@ -88,12 +88,12 @@ int main(/*int argc, char const *argv[]*/) {
       }
       else if (c == ';' || c == '\n'){
         buffer2[1][n]='\0';
-        CriaPlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
+        InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
         memset(buffer2[1],0,strlen(buffer2[1]));
         n=0;
       }
     }
-    CriaPlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
+    InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
     memset(buffer2[1],0,strlen(buffer2[1]));
     memset(buffer2[0],0,strlen(buffer2[0]));
     printf("%c",c);
