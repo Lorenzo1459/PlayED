@@ -158,13 +158,15 @@ void leInfoPlaylists(Playlists *playlists){
   }
 }
 
-Playlists* RefatoraPlaylistsDePessoa(Playlists *playlists){
-  Playlist *aux=playlists->prim;
+void RefatoraPlaylistsDePessoa(Playlists *playlists){
+  Playlist* aux=playlists->prim;
   while (aux != NULL) {
-    RefatoraUmaPlaylist(aux);
+    UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
     aux = aux->prox;
   }
 }
+
+
 
 Playlists* RefatoraUmaPlaylist(Playlist* p){
   TcelulaM* aux = p->prim;
@@ -173,8 +175,8 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
   while (aux != NULL) {
     Playlist* nova = InicializaPlaylist(aux->musica->artista);
     while (aux2 != NULL) {
-      if (strcmp(aux->musica->artista,aux2->musica->artista)) {
-        InsereMusica(retiraMusica(aux2->musica,p),nova);
+      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {
+        InsereMusica(retiraMusica(aux2->musica,p),nova); // loop infinito por causa dessa linha
       }
       aux2 = aux2->prox;
     }
@@ -183,6 +185,16 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
   }
   //liberar a memoria da playlist p
   return novalista;
+}
+
+Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
+  Playlist* aux = playlists2->prim;
+  while (aux != NULL) {
+    InserePlaylist2(playlists,aux);
+    //implementar logica de ^ remocao de playlist de uma lista de playlists
+    aux = aux->prox;
+  }
+  return playlists;
 }
 
 Musica* retiraMusica(Musica *musica,Playlist* playlist){

@@ -17,7 +17,7 @@ Musica* InicializaMusica(char* artista, char* nome);
 
 void LeArqMusicas(char *nomePlaylist,Playlist *playlist);
 void leInfoPlaylists(Playlists *playlists);
-Playlists* RefatoraPlaylistsDePessoa(Playlists *playlists);
+void RefatoraPlaylistsDePessoa(Playlists *playlists);
 Playlists* RefatoraUmaPlaylist(Playlist* p);
 Musica* retiraMusica(Musica *musica,Playlist* playlist);
 
@@ -28,6 +28,7 @@ void ImprimePlaylists (Playlists* p);
 
 void InserePlaylist(Playlists *playlists,char *nomePlaylist); //insere pelo nome (inicializando)
 void InserePlaylist2(Playlists *playlists,Playlist* p); // insere dada playlist em uma lista de playlists
+Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2); // Une duas listas de playlists
 
 static int PlaylistJaExistente(char* nome, Playlists* p);
 void LocalizaPlaylistEInsere(char* nome, Playlists* p);
