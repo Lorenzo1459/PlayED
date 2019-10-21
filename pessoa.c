@@ -137,6 +137,7 @@ void refatoraPlaylists(TipoLista *lista){
   //teoricamente percorre as playlists de todas pessoas
   while(aux != NULL){    
     RefatoraPlaylistsDePessoa(aux->pessoa->playlists);
+    RetiraPlayVazias(aux->pessoa->playlists);
     aux=aux->prox;
   }
 }

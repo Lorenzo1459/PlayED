@@ -30,6 +30,8 @@ void InserePlaylist(Playlists *playlists,char *nomePlaylist); //insere pelo nome
 void InserePlaylist2(Playlists *playlists,Playlist* p); // insere dada playlist em uma lista de playlists
 Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2); // Une duas listas de playlists
 
+void RetiraPlayVazias(Playlists *playlists);
+
 static int PlaylistJaExistente(char* nome, Playlists* p);
 void LocalizaPlaylistEInsere(char* nome, Playlists* p);
 //funcoes de retorno p/ escopo caso necessarias

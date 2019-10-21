@@ -187,24 +187,42 @@ static int tamanhoplaylist(Playlist* p){
   return n;
 }
 
+int existeNaPlay(char *nome,Playlists *playlists){
+  Playlist *aux=playlists->prim;
+  while(aux!=NULL){
+    if(strcmp(nome,aux->nome_playlist)){
+      return 1;
+    }
+  aux=aux->prox;
+  }
+  return 0;
+}
 
 Playlists* RefatoraUmaPlaylist(Playlist* p){
   if(p != NULL){
     printf("entrei refatora UMA\n");
   TcelulaM* aux = p->prim;
   TcelulaM* aux2 = aux;
+  TcelulaM* auxFree;
+  int atualizador = 0;
   Playlists* novalista = InicializaPlaylists();
-  while (aux != NULL) {        
-    Playlist* nova = InicializaPlaylist(aux->musica->artista);
+  while (aux != NULL) {            
+    Playlist* nova = InicializaPlaylist(aux->musica->artista);      
     aux2=p->prim;
     while (aux2 != NULL) {      
       if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {                
+        // auxFree=aux2;
         InsereMusica(retiraMusica(aux2->musica,p),nova); // loop infinito por causa dessa linha
+        // aux2=p->prim;
+        // free(auxFree);
       }              
       aux2 = aux2->prox;
     }
     InserePlaylist2(novalista,nova);
+    auxFree=aux;
     aux = aux->prox;
+    free(auxFree);
+
   }
   //liberar a memoria da playlist p
   return novalista;
@@ -231,14 +249,47 @@ Musica* retiraMusica(Musica *musica,Playlist* playlist){
       playlist->prim=aux->prox;
       return auxresultado;
     }
-    if(strcmp(aux->musica->artista,musica->artista)==0){
+    else if(strcmp(aux->musica->artista,musica->artista)==0){
       auxresultado=aux->musica;
-      aux2=aux->prox;
+      aux2->prox=aux->prox;
       return auxresultado;
     }
     aux2=aux;
     aux=aux->prox;
 
+  }
+}
+
+void RetiraPlayVazias(Playlists *playlists){
+  Playlist *aux=playlists->prim,*aux2;
+  Playlist *auxFree= NULL ;
+  while(aux != NULL){
+    auxFree = NULL;
+    puts(aux->nome_playlist);
+    if(aux->prim == NULL){
+      puts("entrei");
+      if(aux==playlists->prim){
+        auxFree=aux;
+        playlists->prim=aux->prox;
+        
+      }
+      else{
+        auxFree=aux;
+        aux2->prox=aux->prox;
+        
+      }
+
+    
+  //puts(aux2->nome_playlist);
+    
+    }
+  
+  aux2=aux;
+  aux=aux->prox;
+  if(auxFree != NULL){
+  free(auxFree);
+  }
+  
   }
 }
 
