@@ -132,10 +132,10 @@ void adicionaMusicas(TipoLista *lista){
 }
 
 void refatoraPlaylists(TipoLista *lista){
-  tCelula *aux;
+  tCelula *aux;      
   aux=lista->prim;
   //teoricamente percorre as playlists de todas pessoas
-  while(aux != NULL){
+  while(aux != NULL){    
     RefatoraPlaylistsDePessoa(aux->pessoa->playlists);
     aux=aux->prox;
   }

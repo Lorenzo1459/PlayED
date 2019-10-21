@@ -159,25 +159,48 @@ void leInfoPlaylists(Playlists *playlists){
 }
 
 void RefatoraPlaylistsDePessoa(Playlists *playlists){
-  Playlist* aux=playlists->prim;
-  while (aux != NULL) {
+  printf("entrei Refatora TODAS DA PESSOA\n");
+  Playlist* aux = playlists->prim;
+  Playlist* aux2 = playlists->ult;
+  int n = 0;    
+  do{                          
+    printf("NUMERO = %d\n", ++n);
+    if(aux == aux2)
+    UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
+    else{
     UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
     aux = aux->prox;
+    }        
   }
+  while (aux != aux2);
+  UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
+}
+
+static int tamanhoplaylist(Playlist* p){
+  TcelulaM* aux = p->prim;
+  int n =0;
+  while (aux != NULL)
+  {
+    n++;
+    aux = aux->prox;
+  }
+  return n;
 }
 
 
-
 Playlists* RefatoraUmaPlaylist(Playlist* p){
+  if(p != NULL){
+    printf("entrei refatora UMA\n");
   TcelulaM* aux = p->prim;
-  TcelulaM* aux2 = p->prim;
+  TcelulaM* aux2 = aux;
   Playlists* novalista = InicializaPlaylists();
-  while (aux != NULL) {
+  while (aux != NULL) {        
     Playlist* nova = InicializaPlaylist(aux->musica->artista);
-    while (aux2 != NULL) {
-      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {
+    aux2=p->prim;
+    while (aux2 != NULL) {      
+      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {                
         InsereMusica(retiraMusica(aux2->musica,p),nova); // loop infinito por causa dessa linha
-      }
+      }              
       aux2 = aux2->prox;
     }
     InserePlaylist2(novalista,nova);
@@ -185,12 +208,14 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
   }
   //liberar a memoria da playlist p
   return novalista;
+  }
 }
 
 Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
+  Playlists* pl = InicializaPlaylists();
   Playlist* aux = playlists2->prim;
   while (aux != NULL) {
-    InserePlaylist2(playlists,aux);
+    InserePlaylist2(playlists,aux);    
     //implementar logica de ^ remocao de playlist de uma lista de playlists
     aux = aux->prox;
   }
