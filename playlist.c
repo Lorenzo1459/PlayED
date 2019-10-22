@@ -204,6 +204,7 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
   TcelulaM* aux = p->prim;
   TcelulaM* aux2 = aux;
   TcelulaM* auxFree;
+  Musica *outroAux;
   int atualizador = 0;
   Playlists* novalista = InicializaPlaylists();
   while (aux != NULL) {            
@@ -211,8 +212,8 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
     aux2=p->prim;
     while (aux2 != NULL) {      
       if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {                
-        // auxFree=aux2;
-        InsereMusica(retiraMusica(aux2->musica,p),nova); // loop infinito por causa dessa linha
+        outroAux=SeparaCelulaM(retiraMusica(aux2->musica,p));
+        InsereMusica(outroAux,nova); // loop infinito por causa dessa linha
         // aux2=p->prim;
         // free(auxFree);
       }              
@@ -240,17 +241,23 @@ Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
   return playlists;
 }
 
-Musica* retiraMusica(Musica *musica,Playlist* playlist){
-  TcelulaM *aux=playlist->prim,*aux2=playlist->prim;
-  Musica *auxresultado;
+TcelulaM* retiraMusica(Musica *musica,Playlist* playlist){
+  TcelulaM *aux=playlist->prim,*aux2=NULL;
+  TcelulaM *auxresultado;
   while(aux != NULL){
     if(strcmp(aux->musica->artista,musica->artista)==0 && strcmp(aux->musica->artista,playlist->prim->musica->artista)==0){
-      auxresultado=aux->musica;
+      auxresultado=aux;
+      if (playlist->prim == playlist->ult) {
+        playlist->ult = NULL;
+        playlist->prim = NULL;
+      }
       playlist->prim=aux->prox;
+      // playlist->ult=NULL;
+      // aux=NULL;
       return auxresultado;
     }
     else if(strcmp(aux->musica->artista,musica->artista)==0){
-      auxresultado=aux->musica;
+      auxresultado=aux;
       aux2->prox=aux->prox;
       return auxresultado;
     }
@@ -258,6 +265,16 @@ Musica* retiraMusica(Musica *musica,Playlist* playlist){
     aux=aux->prox;
 
   }
+  return NULL;
+}
+
+Musica* SeparaCelulaM(TcelulaM *celula){
+  Musica *guarda=InicializaMusica(celula->musica->artista,celula->musica->nome);
+  //free(celula->musica->artista);
+  //free(celula->musica->nome);
+  //free(celula->)
+  //free(celula);
+  return guarda;
 }
 
 void RetiraPlayVazias(Playlists *playlists){
@@ -265,33 +282,39 @@ void RetiraPlayVazias(Playlists *playlists){
   Playlist *auxFree= NULL ;
   while(aux != NULL){
     auxFree = NULL;
+    printf("ponteiro %p ",aux->ult);
     puts(aux->nome_playlist);
-    if(aux->prim == NULL){
+    if(aux->prim == NULL ){
       puts("entrei");
       if(aux==playlists->prim){
         auxFree=aux;
         playlists->prim=aux->prox;
+        aux=aux->prox;
+        free(auxFree); 
         
       }
       else{
         auxFree=aux;
         aux2->prox=aux->prox;
+        aux=aux->prox;
+        free(auxFree);
         
       }
 
     
   //puts(aux2->nome_playlist);
     
-    }
-  
-  aux2=aux;
-  aux=aux->prox;
-  if(auxFree != NULL){
-  free(auxFree);
+  }
+
+  else{
+    aux2=aux;
+    aux=aux->prox;  
   }
   
   }
-}
+  
+  }
+
 
 
 

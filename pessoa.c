@@ -138,6 +138,7 @@ void refatoraPlaylists(TipoLista *lista){
   while(aux != NULL){    
     RefatoraPlaylistsDePessoa(aux->pessoa->playlists);
     RetiraPlayVazias(aux->pessoa->playlists);
+    
     aux=aux->prox;
   }
 }

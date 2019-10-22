@@ -103,6 +103,8 @@ int main(/*int argc, char const *argv[]*/) {
   adicionaMusicas(pessoas);
   refatoraPlaylists(pessoas);
   
+  //EscreveFodase(pessoas);
+  
   ImprimeLista(pessoas);
 
   return 0;

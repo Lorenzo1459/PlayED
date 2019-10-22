@@ -19,7 +19,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist);
 void leInfoPlaylists(Playlists *playlists);
 void RefatoraPlaylistsDePessoa(Playlists *playlists);
 Playlists* RefatoraUmaPlaylist(Playlist* p);
-Musica* retiraMusica(Musica *musica,Playlist* playlist);
+TcelulaM* retiraMusica(Musica *musica,Playlist* playlist);
 
 void InsereMusica (Musica* mus, Playlist* lista);
 
@@ -31,6 +31,7 @@ void InserePlaylist2(Playlists *playlists,Playlist* p); // insere dada playlist 
 Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2); // Une duas listas de playlists
 
 void RetiraPlayVazias(Playlists *playlists);
+Musica* SeparaCelulaM(TcelulaM *celula);
 
 static int PlaylistJaExistente(char* nome, Playlists* p);
 void LocalizaPlaylistEInsere(char* nome, Playlists* p);
