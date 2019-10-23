@@ -53,7 +53,7 @@ void InserePlaylist(Playlists *playlists,char *nomePlaylist){
     playlists->ult->prox=nova;
     playlists->ult=nova;
   }
-  printf("Cria playlist : %s\n",nova->nome_playlist);
+  // printf("Cria playlist : %s\n",nova->nome_playlist);
 }
 
 void InserePlaylist2(Playlists *playlists,Playlist* p){
@@ -96,7 +96,7 @@ void ImprimePlaylists (Playlists* p){
   Playlist* aux = p->prim;
   while (aux != NULL) {
     // puts("\n\n\n");
-    printf("ImprimePlaylists() ::: %s\n", aux->nome_playlist);
+    printf("-------------%s------------\n", aux->nome_playlist);
     ImprimePlaylist(aux);
     aux = aux->prox;
   }
@@ -117,7 +117,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
          n++;
          c=fgetc(arq);
         }
-       nomeArtista[n]='\0';
+       nomeArtista[n-1]='\0';
       // puts(nomeArtista);
       n=0;
       if(c== '-'){
@@ -159,18 +159,18 @@ void leInfoPlaylists(Playlists *playlists){
 }
 
 void RefatoraPlaylistsDePessoa(Playlists *playlists){
-  printf("entrei Refatora TODAS DA PESSOA\n");
+  // printf("entrei Refatora TODAS DA PESSOA\n");
   Playlist* aux = playlists->prim;
   Playlist* aux2 = playlists->ult;
-  int n = 0;    
-  do{                          
-    printf("NUMERO = %d\n", ++n);
+  int n = 0;
+  do{
+    // printf("NUMERO = %d\n", ++n);
     if(aux == aux2)
     UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
     else{
     UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
     aux = aux->prox;
-    }        
+    }
   }
   while (aux != aux2);
   UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
@@ -200,23 +200,22 @@ int existeNaPlay(char *nome,Playlists *playlists){
 
 Playlists* RefatoraUmaPlaylist(Playlist* p){
   if(p != NULL){
-    printf("entrei refatora UMA\n");
   TcelulaM* aux = p->prim;
   TcelulaM* aux2 = aux;
   TcelulaM* auxFree;
   Musica *outroAux;
   int atualizador = 0;
   Playlists* novalista = InicializaPlaylists();
-  while (aux != NULL) {            
-    Playlist* nova = InicializaPlaylist(aux->musica->artista);      
+  while (aux != NULL) {
+    Playlist* nova = InicializaPlaylist(aux->musica->artista);
     aux2=p->prim;
-    while (aux2 != NULL) {      
-      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {                
+    while (aux2 != NULL) {
+      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {
         outroAux=SeparaCelulaM(retiraMusica(aux2->musica,p));
         InsereMusica(outroAux,nova); // loop infinito por causa dessa linha
         // aux2=p->prim;
         // free(auxFree);
-      }              
+      }
       aux2 = aux2->prox;
     }
     InserePlaylist2(novalista,nova);
@@ -234,7 +233,7 @@ Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
   Playlists* pl = InicializaPlaylists();
   Playlist* aux = playlists2->prim;
   while (aux != NULL) {
-    InserePlaylist2(playlists,aux);    
+    InserePlaylist2(playlists,aux);
     //implementar logica de ^ remocao de playlist de uma lista de playlists
     aux = aux->prox;
   }
@@ -282,51 +281,62 @@ void RetiraPlayVazias(Playlists *playlists){
   Playlist *auxFree= NULL ;
   while(aux != NULL){
     auxFree = NULL;
-    printf("ponteiro %p ",aux->ult);
-    puts(aux->nome_playlist);
+    // puts(aux->nome_playlist);
     if(aux->prim == NULL ){
-      puts("entrei");
+      // puts("entrei");
       if(aux==playlists->prim){
         auxFree=aux;
         playlists->prim=aux->prox;
         aux=aux->prox;
-        free(auxFree); 
-        
+        free(auxFree);
+
       }
       else{
         auxFree=aux;
         aux2->prox=aux->prox;
         aux=aux->prox;
         free(auxFree);
-        
+
       }
 
-    
+
   //puts(aux2->nome_playlist);
-    
+
   }
 
   else{
     aux2=aux;
-    aux=aux->prox;  
-  }
-  
-  }
-  
+    aux=aux->prox;
   }
 
+  }
+
+  }
 
 
 
+int num_playlists(Playlists* p){
+  Playlist* aux = p->prim;
+  int n = 0;
+  while (aux != NULL) {
+    n++;
+    aux = aux->prox;
+  }
+  return n;
+}
 
 
 
 
 //funcoes de retorno p/ escopo caso necessarias
-// Playlist* retornaPrimeiro(Playlists* p){
-//   return p->prim;
-// }
-//
-// Playlist* retornaProximo(Playlist* p){
-//   return p->prox;
-// }
+Playlist* retornaPrimeiro(Playlists* p){
+  return p->prim;
+}
+
+Playlist* retornaProximo(Playlist* p){
+  return p->prox;
+}
+
+char* retornaNome(Playlist* p){
+  return p->nome_playlist;
+}

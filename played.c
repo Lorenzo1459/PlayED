@@ -102,10 +102,11 @@ int main(/*int argc, char const *argv[]*/) {
   ImprimeLista(pessoas);
   adicionaMusicas(pessoas);
   refatoraPlaylists(pessoas);
-  
-  //EscreveFodase(pessoas);
-  
+
+  //Escreve...(pessoas);
+
   ImprimeLista(pessoas);
+  PlayEDrefatorada(pessoas);
 
   return 0;
 }

@@ -57,20 +57,6 @@ void InserePessoa (Pessoa* pessoa, TipoLista* lista){
     lista->ult = nova;
   }
 }
-// void InsereAmigo (Pessoa* amigo, TipoLista* lista){
-//   //mesma função da insere pessoa porem o ponteiro n precisa ser alocado pois apontara pra pessoa q ja existe na lista
-//   tCelula* nova;
-//   nova->pessoa=amigo;
-//   if (lista->prim == NULL) {
-//     lista->prim = nova;
-//     lista->ult = nova;
-//   }
-//   else{
-//     lista->ult->prox = nova;
-//     lista->ult = nova;
-//   }
-
-// }
 
 tCelula* retornaCelula(TipoLista* lista,char *nome){
   tCelula* aux = lista->prim;
@@ -132,17 +118,56 @@ void adicionaMusicas(TipoLista *lista){
 }
 
 void refatoraPlaylists(TipoLista *lista){
-  tCelula *aux;      
+  tCelula *aux;
   aux=lista->prim;
-  //teoricamente percorre as playlists de todas pessoas
-  while(aux != NULL){    
+  // percorre as playlists de todas pessoas
+  while(aux != NULL){
     RefatoraPlaylistsDePessoa(aux->pessoa->playlists);
     RetiraPlayVazias(aux->pessoa->playlists);
-    
+
     aux=aux->prox;
   }
 }
 
+void PlayEDrefatorada(TipoLista* lista){
+  FILE* fp5 = fopen("played-refatorada.txt", "w");
+  tCelula* aux = lista->prim;
+  while (aux != NULL) {
+    Playlist* auxp = retornaPrimeiro(aux->pessoa->playlists);
+    fprintf(fp5,"%s," ,aux->pessoa->nome);
+    fprintf(fp5, "%d", num_playlists(aux->pessoa->playlists));
+    while (auxp != NULL) {
+      fprintf(fp5, ",%s.txt", retornaNome(auxp));
+      auxp = retornaProximo(auxp);
+    }
+    fprintf(fp5, "\n");
+    aux = aux->prox;
+  }
+}
+
+// int calculaSimilaridade(Pessoa* p){
+//   tCelula* aux = p->prim;
+//   while (aux != NULL) {
+//
+//   }
+// }
+
+// struct pessoa{
+//   char* nome; // Nome da pessoa
+//   TipoLista* amigos; // Lista de amigos
+//   Playlists* playlists; // Lista de playlists
+// };
+
+// struct tcelula{
+//   Pessoa* pessoa; // Item
+//   tCelula* prox;
+// };
+//
+//
+// struct tipolista{
+//   tCelula* prim;
+//   tCelula* ult;
+// };
 
 //  Funcoes libera
 TipoLista* LiberaListaPessoas(TipoLista* lista){

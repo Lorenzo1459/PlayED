@@ -38,4 +38,7 @@ void inicializaListaAmigos(TipoLista *lista);
 Playlists* retornaPlaylists(TipoLista *lista,char *nome);
 void adicionaMusicas(TipoLista *lista);
 
+void PlayEDrefatorada(TipoLista* lista);
+int calculaSimilaridade(Pessoa* p);
+
 #endif //PESSOA_H

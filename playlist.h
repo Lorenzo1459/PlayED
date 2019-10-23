@@ -36,7 +36,11 @@ Musica* SeparaCelulaM(TcelulaM *celula);
 static int PlaylistJaExistente(char* nome, Playlists* p);
 void LocalizaPlaylistEInsere(char* nome, Playlists* p);
 //funcoes de retorno p/ escopo caso necessarias
-// Playlist* retornaPrimeiro(Playlists* p);
-// Playlist* retornaProximo(Playlist* p);
+Playlist* retornaPrimeiro(Playlists* p);
+Playlist* retornaProximo(Playlist* p);
+
+int num_playlists(Playlists* p);
+
+char* retornaNome(Playlist* p);
 
 #endif //PLAYLIST_H_
