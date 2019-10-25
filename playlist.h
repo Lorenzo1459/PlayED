@@ -43,4 +43,8 @@ int num_playlists(Playlists* p);
 
 char* retornaNome(Playlist* p);
 
+TcelulaM* retornaPrimeiraCel(Playlist* p);
+TcelulaM* retornaProxCel(TcelulaM* p);
+char* retornaNomeMusica(TcelulaM* cel);
+
 #endif //PLAYLIST_H_

@@ -340,3 +340,14 @@ Playlist* retornaProximo(Playlist* p){
 char* retornaNome(Playlist* p){
   return p->nome_playlist;
 }
+
+TcelulaM* retornaPrimeiraCel(Playlist* p){
+  return p->prim;
+}
+
+TcelulaM* retornaProxCel(TcelulaM* p){
+  return p->prox;
+}
+char* retornaNomeMusica(TcelulaM* cel){
+  return cel->musica->nome;
+}

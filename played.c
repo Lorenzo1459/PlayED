@@ -99,14 +99,21 @@ int main(/*int argc, char const *argv[]*/) {
     printf("%c",c);
     }
   }
-  ImprimeLista(pessoas);
+  //ImprimeLista(pessoas);
   adicionaMusicas(pessoas);
+  printf("Musicas adicionadas...\n");
   refatoraPlaylists(pessoas);
-
+  printf("Playlists Refatoradas...\n");
   //Escreve...(pessoas);
 
-  ImprimeLista(pessoas);
+  //ImprimeLista(pessoas);
   PlayEDrefatorada(pessoas);
+  printf("Arquivo played-refatorada.txt gerado...\n");
+  cria_pastas(pessoas);
+  printf("Diretórios criados...\n");
+  preenche_pastas(pessoas);
+  printf("Pastas preenchidas...\n");
+  printf("Concluído.\n");
 
   return 0;
 }

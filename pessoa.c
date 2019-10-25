@@ -145,29 +145,47 @@ void PlayEDrefatorada(TipoLista* lista){
   }
 }
 
-// int calculaSimilaridade(Pessoa* p){
-//   tCelula* aux = p->prim;
-//   while (aux != NULL) {
-//
-//   }
-// }
+void cria_pasta(Pessoa* p){
+  const int layer1 = 5;
+    const int layer2 = 10;
+    const int outfiles = 100;
+    char buffer[100];    
+    
+    sprintf(buffer, "mkdir %s", p->nome);
+    system(buffer);
+}
 
-// struct pessoa{
-//   char* nome; // Nome da pessoa
-//   TipoLista* amigos; // Lista de amigos
-//   Playlists* playlists; // Lista de playlists
-// };
+void cria_pastas(TipoLista* l){
+  tCelula* aux = l->prim;
+  while(aux != NULL){
+    cria_pasta(aux->pessoa);
+    aux = aux->prox;
+  }
+}
 
-// struct tcelula{
-//   Pessoa* pessoa; // Item
-//   tCelula* prox;
-// };
-//
-//
-// struct tipolista{
-//   tCelula* prim;
-//   tCelula* ult;
-// };
+void preenche_pasta(Pessoa* p){
+  Playlist* aux = retornaPrimeiro(p->playlists);
+  char buffer[40];  
+  while(aux != NULL){ 
+    sprintf(buffer,"%s/%s",p->nome,retornaNome(aux));
+    FILE* fp6 = fopen(buffer,"w");
+    TcelulaM* auxM = retornaPrimeiraCel(aux);
+    while(auxM != NULL){
+      fprintf(fp6,"%s\n",retornaNomeMusica(auxM));
+      auxM = retornaProxCel(auxM);
+    }    
+    aux = retornaProximo(aux);
+    fclose(fp6);
+  }
+}
+
+void preenche_pastas(TipoLista* l){
+  tCelula* aux = l->prim;
+  while(aux != NULL){
+    preenche_pasta(aux->pessoa);
+    aux = aux->prox;
+  }
+}
 
 //  Funcoes libera
 TipoLista* LiberaListaPessoas(TipoLista* lista){

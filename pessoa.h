@@ -41,4 +41,10 @@ void adicionaMusicas(TipoLista *lista);
 void PlayEDrefatorada(TipoLista* lista);
 int calculaSimilaridade(Pessoa* p);
 
+
+void cria_pasta(Pessoa* p);
+void cria_pastas(TipoLista* l);
+void preenche_pasta(Pessoa* p);
+void preenche_pastas(TipoLista* l);
+
 #endif //PESSOA_H
