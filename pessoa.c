@@ -143,6 +143,7 @@ void PlayEDrefatorada(TipoLista* lista){
     fprintf(fp5, "\n");
     aux = aux->prox;
   }
+fclose(fp5);
 }
 
 void cria_pasta(Pessoa* p){
@@ -186,12 +187,64 @@ void preenche_pastas(TipoLista* l){
     aux = aux->prox;
   }
 }
+void similaridades(TipoLista *lista){
+  tCelula *pessoa=lista->prim;
+  int quant=0;
+  FILE *arq=fopen("similaridades.txt","w");
+  while (pessoa !=NULL)
+  {
+    tCelula *pessoa2=pessoa->pessoa->amigos->prim;
+    
 
+    while(pessoa2 != NULL){
+      quant=0;
+      if(pessoa2!= pessoa){
+        quant= ContaSimilaridade(pessoa->pessoa->playlists,pessoa2->pessoa->playlists);
+        fprintf(arq,"\n%s;%s;%i\n",pessoa->pessoa->nome,pessoa2->pessoa->nome,quant);
+      }
+      pessoa2=pessoa2->prox;
+    }
+    pessoa=pessoa->prox;
+  }
+  fclose(arq);
+}
+int contaPessoas(TipoLista *pessoas){
+  tCelula *aux=pessoas->prim;
+  int cont=0;
+  while(aux!= NULL){
+    cont++;
+    aux=aux->prox;
+  }
+return cont;
+}
 //  Funcoes libera
-TipoLista* LiberaListaPessoas(TipoLista* lista){
-  // Libera Lista de Pessoas
+void LiberaListaPessoas(TipoLista* lista){
+  tCelula *aux=lista->prim;
+  tCelula *auxFree;
+  
+  while(aux != NULL){
+    auxFree=aux;
+    aux=aux->prox;
+
+    LiberaPessoa(auxFree->pessoa);
+    free(auxFree);
+  }
 }
 //
-TipoLista* LiberaPessoa(Pessoa* p){
+void LiberaPessoa(Pessoa* p){
+  Playlists *aux=p->playlists;
+  tCelula *aux2=p->amigos->prim,*auxFree;
+  free(p->nome);
+  LiberaPlaylists(aux);
+  free(aux);
+  while(aux2!=NULL){
+    auxFree=aux2;
+    aux2=aux2->prox;
+    free(auxFree);
+  }
+  free(p->amigos);
+  free(p);
+  
+
 
 }

@@ -1,0 +1,12 @@
+
+Joao;Maria;0
+
+Joao;Pedro;0
+
+Maria;Joao;0
+
+Pedro;Joao;0
+
+Pedro;Alice;5
+
+Alice;Pedro;5

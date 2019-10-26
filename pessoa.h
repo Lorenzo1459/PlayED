@@ -31,7 +31,8 @@ void ImprimePessoa (Pessoa* p);
 
 void ImprimeLista (TipoLista* lista);
 
-TipoLista* LiberaListaPessoas(TipoLista* lista);
+void LiberaListaPessoas(TipoLista* lista);
+void LiberaPessoa(Pessoa* p);
 
 void inicializaListaAmigos(TipoLista *lista);
 
@@ -40,6 +41,8 @@ void adicionaMusicas(TipoLista *lista);
 
 void PlayEDrefatorada(TipoLista* lista);
 int calculaSimilaridade(Pessoa* p);
+void similaridades(TipoLista *lista);
+int contaPessoas(TipoLista *pessoas);
 
 
 void cria_pasta(Pessoa* p);

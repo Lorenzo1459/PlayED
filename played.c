@@ -29,13 +29,15 @@ int main(/*int argc, char const *argv[]*/) {
         n = 0;
       }
     }
-
+    //faz a mesma coisa do else anterior pra ultima linha visto que não existe '\n'
+    buffer[n]='\0';
     InserePessoa(InicializaPessoa(buffer),pessoas);
     memset(buffer,0,strlen(buffer));
 
-    inicializaListaAmigos(pessoas);
+    //inicializaListaAmigos(pessoas);
 
-    while((c=fgetc(fp))!= EOF ){
+
+    while((c=fgetc(fp))!= EOF ){ //faz a adição dos amigos
       n=0;
       do{
         buffer2[0][n] = c; //le o nome do primeira pessoa e armazena em buffer2[0]
@@ -65,9 +67,10 @@ int main(/*int argc, char const *argv[]*/) {
   //ler o playlists.txt
 
   if (fp2 != NULL){
-    int quantPlaylists=0;
+    int quantPlaylists=0,quantPessoas=0;
 // ----------TROCAR I POR QUANT PESSOAS -- IMPORTANTE!!!!---------------------------------------------
-    for (int i = 0; i < 4; i++){
+    quantPessoas=contaPessoas(pessoas);
+    for (int i = 0; i < quantPessoas; i++){
      n=0;
     while((c=fgetc(fp2))!= ';'){
       if (c == ' ')
@@ -99,14 +102,16 @@ int main(/*int argc, char const *argv[]*/) {
     printf("%c",c);
     }
   }
+  fclose(fp2);
   //ImprimeLista(pessoas);
   adicionaMusicas(pessoas);
+  ;
   printf("Musicas adicionadas...\n");
   refatoraPlaylists(pessoas);
   printf("Playlists Refatoradas...\n");
   //Escreve...(pessoas);
 
-  //ImprimeLista(pessoas);
+  
   PlayEDrefatorada(pessoas);
   printf("Arquivo played-refatorada.txt gerado...\n");
   cria_pastas(pessoas);
@@ -114,6 +119,11 @@ int main(/*int argc, char const *argv[]*/) {
   preenche_pastas(pessoas);
   printf("Pastas preenchidas...\n");
   printf("Concluído.\n");
+
+  similaridades(pessoas);
+  LiberaListaPessoas(pessoas);
+  free(pessoas);
+  //ImprimeLista(pessoas);
 
   return 0;
 }
