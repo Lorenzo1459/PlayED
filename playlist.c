@@ -162,7 +162,7 @@ void RefatoraPlaylistsDePessoa(Playlists *playlists){
   // printf("entrei Refatora TODAS DA PESSOA\n");
   Playlist* aux = playlists->prim;
   Playlist* aux2 = playlists->ult;
-  int n = 0;
+  
   do{
     // printf("NUMERO = %d\n", ++n);
     if(aux == aux2)
@@ -203,8 +203,6 @@ Playlists* RefatoraUmaPlaylist(Playlist* p){
   if(p != NULL){
   TcelulaM* aux = p->prim;
   TcelulaM* aux2 = aux;
-  Musica *outroAux;
-  int atualizador = 0;
   Playlists* novalista = InicializaPlaylists();
   while (aux != NULL) {
     Playlist* nova = InicializaPlaylist(aux->musica->artista);
@@ -252,17 +250,12 @@ void TranfereMusica(TcelulaM *celula,Playlist *lista){
 
 
 Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
-
-  Playlist* aux = playlists2->prim;
-  //while (aux != NULL) {
-    //InserePlaylist2(playlists,aux);
     playlists->ult->prox=playlists2->prim;
     playlists->ult=playlists2->ult;
     free(playlists2);
-    
     //implementar logica de ^ remocao de playlist de uma lista de playlists
     //aux = aux->prox;
-  //}
+  
   return playlists;
 }
 

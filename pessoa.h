@@ -22,6 +22,7 @@ tCelula* retornaCelula(TipoLista* lista,char *nome);
 
 void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado);
 
+
 void adicionaMusicas(TipoLista *lista);
 
 void refatoraPlaylists(TipoLista *lista);

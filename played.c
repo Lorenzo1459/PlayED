@@ -71,6 +71,7 @@ int main(/*int argc, char const *argv[]*/) {
 // ----------TROCAR I POR QUANT PESSOAS -- IMPORTANTE!!!!---------------------------------------------
     quantPessoas=contaPessoas(pessoas);
     for (int i = 0; i < quantPessoas; i++){
+      
      n=0;
     while((c=fgetc(fp2))!= ';'){
       if (c == ' ')
