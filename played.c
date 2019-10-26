@@ -49,15 +49,15 @@ int main(/*int argc, char const *argv[]*/) {
       c=fgetc(fp); //fgetc pra pular o ponto e virgula
       n=0;
       do{
-        buffer2[1][n] = c; //le o nome da 2 pessoa e armazena em buffer2[1]
+        buffer2[1][n] = c; // le o nome da 2 pessoa e armazena em buffer2[1]
         n++;
       }
       while ((c = fgetc(fp)) != '\n');
       buffer2[1][n]='\0';
 
-      AdicionaAmigo(pessoas,buffer2[0],buffer2[1]);// <<< EXPLICA AE ICARO
-      memset(buffer2[0],0,strlen(buffer2[0])); //explicar o uso
-      memset(buffer2[1],0,strlen(buffer2[1])); // de memset
+      AdicionaAmigo(pessoas,buffer2[0],buffer2[1]);
+      memset(buffer2[0],0,strlen(buffer2[0])); // memset reseta os buffers pra não guardar lixo no proximo uso
+      memset(buffer2[1],0,strlen(buffer2[1])); 
     }
   }
   fclose(fp); // Fecha arquivo amizades
@@ -68,52 +68,52 @@ int main(/*int argc, char const *argv[]*/) {
 
   if (fp2 != NULL){
     int quantPlaylists=0,quantPessoas=0;
-// ----------TROCAR I POR QUANT PESSOAS -- IMPORTANTE!!!!---------------------------------------------
     quantPessoas=contaPessoas(pessoas);
+
     for (int i = 0; i < quantPessoas; i++){
-      
+
      n=0;
-    while((c=fgetc(fp2))!= ';'){
+    while((c=fgetc(fp2))!= ';'){ // le o nome da pessoa
       if (c == ' ')
         continue;
       buffer2[0][n] = c;
       n++;
     }
     buffer2[0][n]='\0';
-    fgetc(fp2);
-    fscanf(fp2,"%i",&quantPlaylists);
-    fgetc(fp2);
+    fgetc(fp2);//pula o ;
+    fscanf(fp2,"%i",&quantPlaylists); //le a quant de playlists
+    fgetc(fp2);//pula o outro ;
     n = 0;
     while ((c = fgetc(fp2)) != '\n')
     {
-      if (c != ';'){
+      if (c != ';'){ // le o nome do arquivo da playlist
         buffer2[1][n] = c;
         n++;
       }
-      else if (c == ';' || c == '\n'){
+      else if (c == ';' || c == '\n'){ // quando acha o ; chama a função pra criar as playlists com seus respectivos nomes
         buffer2[1][n]='\0';
         InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
         memset(buffer2[1],0,strlen(buffer2[1]));
         n=0;
       }
     }
-    InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
+
+    InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]); // chama a função mais uma vez pra ultima linha e reseta os buffers
     memset(buffer2[1],0,strlen(buffer2[1]));
     memset(buffer2[0],0,strlen(buffer2[0]));
     printf("%c",c);
     }
   }
+  
   fclose(fp2);
-  //ImprimeLista(pessoas);
-  adicionaMusicas(pessoas);
-  ;
+  adicionaMusicas(pessoas); // adiciona as musicas as suas respectivas playlists
   printf("Musicas adicionadas...\n");
-  refatoraPlaylists(pessoas);
+  
+  refatoraPlaylists(pessoas); // refatora as playlists
   printf("Playlists Refatoradas...\n");
-  //Escreve...(pessoas);
 
   
-  PlayEDrefatorada(pessoas);
+  PlayEDrefatorada(pessoas); // cria os arquivos de saida
   printf("Arquivo played-refatorada.txt gerado...\n");
   cria_pastas(pessoas);
   printf("Diretórios criados...\n");

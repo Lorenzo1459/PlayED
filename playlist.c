@@ -112,7 +112,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
     while(c != EOF){
       c=fgetc(arq);
       //printf("%c",c);
-      while(c != '-'){
+      while(c != '-'){ // le o nome do artista
         nomeArtista[n]=c;
          n++;
          c=fgetc(arq);
@@ -120,7 +120,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
        nomeArtista[n-1]='\0';
       // puts(nomeArtista);
       n=0;
-      if(c== '-'){
+      if(c== '-'){ // le o nome da musica
          c=fgetc(arq);
       }
        while(c  != '\n'&& c !=EOF){
@@ -150,6 +150,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
   }
 fclose(arq);
 }
+
 void leInfoPlaylists(Playlists *playlists){
   Playlist *aux=playlists->prim;
   while(aux != NULL){
@@ -165,7 +166,7 @@ void RefatoraPlaylistsDePessoa(Playlists *playlists){
   
   do{
     // printf("NUMERO = %d\n", ++n);
-    if(aux == aux2)
+    if(aux == aux2) // verificação pra quando só tiver 1 playlist
     UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
     else{
     UnePlaylists(playlists,RefatoraUmaPlaylist(aux));
@@ -201,60 +202,49 @@ int existeNaPlay(char *nome,Playlists *playlists){
 
 Playlists* RefatoraUmaPlaylist(Playlist* p){
   if(p != NULL){
+  
   TcelulaM* aux = p->prim;
   TcelulaM* aux2 = aux;
-  Playlists* novalista = InicializaPlaylists();
+  Playlists* novalista = InicializaPlaylists();// cria uma lista de playlists vazia
+  
   while (aux != NULL) {
-    Playlist* nova = InicializaPlaylist(aux->musica->artista);
-    aux2=p->prim;
+    Playlist* nova = InicializaPlaylist(aux->musica->artista); // cria uma playlist vazia
+    aux2=p->prim; // pra sempre percorrer a lista toda
     
     while (aux2 != NULL) {
-      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) {
-        //outroAux=SeparaCelulaM(retiraMusica(aux2->musica,p));
-        //InsereMusica(outroAux,nova); // loop infinito por causa dessa linha
-        
+      if (strcmp(aux->musica->artista,aux2->musica->artista) == 0) { // se for o artista for igual transfere pra lista nova
         TranfereMusica(retiraMusica(aux2->musica,p),nova);
-    
       }
-      aux2 = aux2->prox;
-      
+      aux2 = aux2->prox; 
     }
-    nova->ult->prox=NULL;
+    
+    nova->ult->prox=NULL; // pra ultima celula da playlist nova n continuar apontando pro proximo da antiga
     InserePlaylist2(novalista,nova);
-    aux = p->prim;
-
+    aux = p->prim; // como o primeiro elemento vai ser sempre retirado aux sempre é o primeiro 
   }
-  //liberar a memoria da playlist p
+ 
   return novalista;
   }
 }
 
 void TranfereMusica(TcelulaM *celula,Playlist *lista){
   
-  if(lista->prim==NULL && lista->ult == NULL){
-    
-  
+  if(lista->prim==NULL && lista->ult == NULL){ // se a lista estiver vazia
     lista->prim=celula;
     lista->ult=celula;
-    
   }
   else{
-   
-  
   lista->ult->prox=celula;
   lista->ult=celula;
-  
   }
   
 }
-
 
 Playlists* UnePlaylists(Playlists *playlists,Playlists* playlists2){
     playlists->ult->prox=playlists2->prim;
     playlists->ult=playlists2->ult;
     free(playlists2);
-    //implementar logica de ^ remocao de playlist de uma lista de playlists
-    //aux = aux->prox;
+
   
   return playlists;
 }
@@ -271,8 +261,7 @@ TcelulaM* retiraMusica(Musica *musica,Playlist* playlist){
         playlist->prim = NULL;
       }
       playlist->prim=aux->prox;
-      // playlist->ult=NULL;
-      // aux=NULL;
+      
       return auxresultado;
     }
     else if(strcmp(aux->musica->artista,musica->artista)==0){

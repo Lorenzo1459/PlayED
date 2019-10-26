@@ -25,8 +25,8 @@ struct pessoa{
 Pessoa* InicializaPessoa(char* nome){
   Pessoa* p = (Pessoa*)malloc(sizeof(Pessoa));
   p->nome = strdup(nome);
-  p->amigos = InicializaListaDePessoas();
-  p->playlists = InicializaPlaylists();
+  p->amigos = InicializaListaDePessoas(); // inicializa lista vazia
+  p->playlists = InicializaPlaylists(); // inicializa lista vazia
   return p;
 }
 
@@ -48,7 +48,7 @@ void InserePessoa (Pessoa* pessoa, TipoLista* lista){
   tCelula* nova = (tCelula*)malloc(sizeof(tCelula));
   nova->pessoa = pessoa;
   nova->prox=NULL;
-  if (lista->prim == NULL) {
+  if (lista->prim == NULL) { // quando a lista for fazia
     lista->prim = nova;
     lista->ult = nova;
   }
@@ -77,7 +77,7 @@ void AdicionaAmigo(TipoLista* lista, char* adicionador, char* adicionado){
   }
 }
 
-void ImprimePessoa (Pessoa* p){
+void ImprimePessoa (Pessoa* p){ // só pra teste
   puts(p->nome);
   //falta playlist
   printf("--Playlists--\n");
@@ -187,6 +187,7 @@ void preenche_pastas(TipoLista* l){
     aux = aux->prox;
   }
 }
+
 void similaridades(TipoLista *lista){
   tCelula *pessoa=lista->prim;
   int quant=0;
@@ -208,6 +209,7 @@ void similaridades(TipoLista *lista){
   }
   fclose(arq);
 }
+
 int contaPessoas(TipoLista *pessoas){
   tCelula *aux=pessoas->prim;
   int cont=0;
