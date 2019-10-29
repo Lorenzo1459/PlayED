@@ -55,6 +55,7 @@ int main(/*int argc, char const *argv[]*/) {
       while ((c = fgetc(fp)) != '\n');
       buffer2[1][n]='\0';
 
+    
       AdicionaAmigo(pessoas,buffer2[0],buffer2[1]);
       memset(buffer2[0],0,strlen(buffer2[0])); // memset reseta os buffers pra não guardar lixo no proximo uso
       memset(buffer2[1],0,strlen(buffer2[1])); 
@@ -75,7 +76,7 @@ int main(/*int argc, char const *argv[]*/) {
      n=0;
     while((c=fgetc(fp2))!= ';'){ // le o nome da pessoa
       if (c == ' ')
-        continue;
+        c=fgetc(fp2);
       buffer2[0][n] = c;
       n++;
     }
@@ -92,23 +93,25 @@ int main(/*int argc, char const *argv[]*/) {
       }
       else if (c == ';' || c == '\n'){ // quando acha o ; chama a função pra criar as playlists com seus respectivos nomes
         buffer2[1][n]='\0';
+        
         InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]);
         memset(buffer2[1],0,strlen(buffer2[1]));
         n=0;
       }
     }
-
+    //puts(buffer2[1]);
     InserePlaylist(retornaPlaylists(pessoas,buffer2[0]),buffer2[1]); // chama a função mais uma vez pra ultima linha e reseta os buffers
     memset(buffer2[1],0,strlen(buffer2[1]));
     memset(buffer2[0],0,strlen(buffer2[0]));
-    printf("%c",c);
+    //printf("%c",c);
     }
   }
   
   fclose(fp2);
-  adicionaMusicas(pessoas); // adiciona as musicas as suas respectivas playlists
-  printf("Musicas adicionadas...\n");
   
+  adicionaMusicas(pessoas); // adiciona as musicas as suas respectivas playlists
+  ImprimeLista(pessoas);
+  printf("Musicas adicionadas...\n");
   refatoraPlaylists(pessoas); // refatora as playlists
   printf("Playlists Refatoradas...\n");
 
@@ -120,11 +123,11 @@ int main(/*int argc, char const *argv[]*/) {
   preenche_pastas(pessoas);
   printf("Pastas preenchidas...\n");
   printf("Concluído.\n");
-
+  ImprimeLista(pessoas);
   similaridades(pessoas);
   LiberaListaPessoas(pessoas);
   free(pessoas);
-  //ImprimeLista(pessoas);
+  
 
   return 0;
 }

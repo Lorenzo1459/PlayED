@@ -109,16 +109,19 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
   if(arq != NULL)
   {
 
-    while(c != EOF){
+    while(!feof(arq)){
       c=fgetc(arq);
+      if(c==EOF)
+      break;
       //printf("%c",c);
       while(c != '-'){ // le o nome do artista
+        //printf("%c",c);
         nomeArtista[n]=c;
          n++;
          c=fgetc(arq);
         }
        nomeArtista[n-1]='\0';
-      // puts(nomeArtista);
+      
       n=0;
       if(c== '-'){ // le o nome da musica
          c=fgetc(arq);
@@ -131,7 +134,8 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
       }
         if(c!=EOF){
         nomeMusica[n]='\0';
-        // puts(nomeMusica);
+        
+        puts(nomeArtista);
         InsereMusica(InicializaMusica(nomeArtista,nomeMusica),playlist);
         memset(nomeMusica,0,strlen(nomeMusica));
         memset(nomeArtista,0,strlen(nomeArtista));
@@ -140,10 +144,12 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
     }
       nomeMusica[n]='\0';
       // puts(nomeMusica);
-      InsereMusica(InicializaMusica(nomeArtista,nomeMusica),playlist);
-      memset(nomeMusica,0,strlen(nomeMusica));
-      memset(nomeArtista,0,strlen(nomeArtista));
-      c='c';//reseta o c pra n guardar o  EOF
+      //puts(nomeArtista);
+      
+      // InsereMusica(InicializaMusica(nomeArtista,nomeMusica),playlist);
+      // memset(nomeMusica,0,strlen(nomeMusica));
+      // memset(nomeArtista,0,strlen(nomeArtista));
+      //c='c';//reseta o c pra n guardar o  EOF
       n=0;
   }
   else{puts("não abriu");
@@ -284,7 +290,7 @@ void RetiraPlayVazias(Playlists *playlists){
   while(aux != NULL){
     auxFree = NULL;
     // puts(aux->nome_playlist);
-    if(aux->prim == NULL ){
+    if(aux->prim == NULL || aux->ult == NULL ){
       // puts("entrei");
       if(aux==playlists->prim){
         auxFree=aux;
@@ -302,22 +308,14 @@ void RetiraPlayVazias(Playlists *playlists){
         free(auxFree);
 
       }
-
-
-  //puts(aux2->nome_playlist);
-
   }
 
   else{
     aux2=aux;
     aux=aux->prox;
   }
-
   }
-
-  }
-
-
+}
 
 int num_playlists(Playlists* p){
   Playlist* aux = p->prim;
