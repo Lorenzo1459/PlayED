@@ -132,7 +132,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
         c=fgetc(arq);
 
       }
-        if(c!=EOF){
+        //if(c!=EOF){
         nomeMusica[n]='\0';
         
         puts(nomeArtista);
@@ -140,7 +140,7 @@ void LeArqMusicas(char *nomePlaylist,Playlist *playlist){
         memset(nomeMusica,0,strlen(nomeMusica));
         memset(nomeArtista,0,strlen(nomeArtista));
         n=0;
-        }
+        //}
     }
       nomeMusica[n]='\0';
       // puts(nomeMusica);

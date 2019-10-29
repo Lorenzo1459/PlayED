@@ -7,6 +7,6 @@ Maria;Joao;0
 
 Pedro;Joao;0
 
-Pedro;Alice;3
+Pedro;Alice;5
 
-Alice;Pedro;3
+Alice;Pedro;5
